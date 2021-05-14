@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -22,9 +27,9 @@ class CustomerdataApplicationTests {
 	@Test
 	public void testCreate() {
 		Customer customer = new Customer();
-		customer.setId(1L);
-		customer.setName("BeyondLogic");
-		customer.setEmail("BeyondLogic@Localhost.com");
+		customer.setId(5L);
+		customer.setName("Lucid");
+		customer.setEmail("Lucid@Localhost.com");
 
 		customerRepository.save(customer);
 	}
@@ -54,5 +59,20 @@ class CustomerdataApplicationTests {
 		}
 
 	}
+
+
+	@Test
+	public void testFindByEmailAndName() {
+		List<Customer> customers = customerRepository.findByEmailAndName("BeyondLogic@Localhost.com", "BeyondLogic");
+		customers.forEach(customer -> System.out.println("Customer with email : "
+				+ customer.getEmail() + " name: " + customer.getName() + " is found in the database" ));
+	}
+
+	@Test
+	public void testFindByIdIn() {
+			Set<Customer> customers = customerRepository.findByIdIn(Set.of(1L,3L,4L));
+		customers.forEach(customer -> System.out.println(customer.getName()));
+	}
+
 
 }
