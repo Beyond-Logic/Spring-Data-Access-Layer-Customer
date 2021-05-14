@@ -1,5 +1,6 @@
 package com.beyondLogic.springdata.customerdata;
 
+import com.beyondLogic.springdata.customerdata.model.Address;
 import com.beyondLogic.springdata.customerdata.model.Customer;
 import com.beyondLogic.springdata.customerdata.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class CustomerdataApplicationTests {
 	@Test
 	public void testCreate() {
 		Customer customer = new Customer();
-		customer.setId(1L);
+		customer.setId(1);
 		customer.setName("Lucid");
 		customer.setEmail("Lucid@Localhost.com");
 
@@ -39,7 +40,7 @@ class CustomerdataApplicationTests {
 	@Test
 	public void testRead() {
 
-		Customer customer = customerRepository.findById(1L).get();
+		Customer customer = customerRepository.findById(1).get();
 		assertNotNull(customer);
 		assertNotEquals("Lucid", customer.getName());
 
@@ -48,16 +49,16 @@ class CustomerdataApplicationTests {
 	@Test
 	public void testUpdate() {
 
-		Customer customer = customerRepository.findById(1L).get();
+		Customer customer = customerRepository.findById(1).get();
 		customer.setEmail("LucidLogic@locahost.com");
 		customerRepository.save(customer);
 	}
 
 	@Test
 	public void testDelete(){
-		if(customerRepository.existsById(1L)) {
+		if(customerRepository.existsById(1)) {
 			System.out.println("Deleting a product");
-			customerRepository.deleteById(1L);
+			customerRepository.deleteById(1);
 		}
 
 	}
@@ -83,8 +84,24 @@ class CustomerdataApplicationTests {
 
 		customerRepository.updateCustomerEmail("Logic@Localhost",1L);
 
-
 	}
 
+
+	@Test
+	public void testRegisterCustomer () {
+		Customer customer = new Customer();
+		customer.setId(2);
+		customer.setName("Anna");
+		customer.setEmail("Anna@LocalHost.com");
+		Address address = new Address();
+		address.setStreetAddress("Phase 1");
+		address.setCity("Highland");
+		address.setState("Lagos");
+		address.setCountry("Nigeria");
+		address.setZipcode("300000");
+		customer.setAddress(address);
+
+		customerRepository.save(customer);
+	}
 
 }

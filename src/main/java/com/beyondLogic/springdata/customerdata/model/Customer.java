@@ -1,23 +1,26 @@
 package com.beyondLogic.springdata.customerdata.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "customer")
 public class Customer {
 
     @Id
-    private Long id;
+    private Integer id;
     private String name;
     private String email;
+    @Embedded
+    private Address address;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -35,5 +38,13 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

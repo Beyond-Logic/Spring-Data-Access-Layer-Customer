@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Set;
 
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
+public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 
     List<Customer> findByEmailAndName (String email, String name);
 
