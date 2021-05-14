@@ -5,7 +5,9 @@ import com.beyondLogic.springdata.customerdata.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +29,7 @@ class CustomerdataApplicationTests {
 	@Test
 	public void testCreate() {
 		Customer customer = new Customer();
-		customer.setId(5L);
+		customer.setId(1L);
 		customer.setName("Lucid");
 		customer.setEmail("Lucid@Localhost.com");
 
@@ -72,6 +74,16 @@ class CustomerdataApplicationTests {
 	public void testFindByIdIn() {
 			Set<Customer> customers = customerRepository.findByIdIn(Set.of(1L,3L,4L));
 		customers.forEach(customer -> System.out.println(customer.getName()));
+	}
+
+	@Rollback(value = false)
+	@Transactional
+	@Test
+	public void testUpdateCustomerEmail(){
+
+		customerRepository.updateCustomerEmail("Logic@Localhost",1L);
+
+
 	}
 
 
